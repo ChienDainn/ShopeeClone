@@ -1,14 +1,17 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
-  entry: './src/main.jsx',
+  entry: {
+    app: './src/main.jsx',
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'assets/[name].[contenthash].js',
+    filename: '[name].[contenthash].js',
     clean: true,
     publicPath: '/',
   },
@@ -24,7 +27,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
@@ -43,6 +46,10 @@ module.exports = {
     }),
     new CopyWebpackPlugin({
       patterns: [{ from: 'public', to: '.' }],
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
+      chunkFilename: '[name].[contenthash].css',
     }),
   ],
   devServer: {
