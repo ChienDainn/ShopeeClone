@@ -14,7 +14,7 @@ function ProductList({ items }) {
 
 const ProductListWithLoading = withLoading(ProductList)
 
-function fetchData(onSuccess, onError) {
+function fetchData(onSuccess) {
   setTimeout(() => onSuccess({ id: 1, name: 'SP A' }), 500)
 }
 

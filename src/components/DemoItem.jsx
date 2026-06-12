@@ -1,6 +1,6 @@
 import BeforeAfter from './BeforeAfter'
 
-export default function DemoItem({ title, meaning, usage, before, after, children }) {
+export default function DemoItem({ title, meaning, usage, when, before, after, children }) {
   return (
     <li className="demo-item">
       <strong className="demo-item__title">{title}</strong>
@@ -8,8 +8,13 @@ export default function DemoItem({ title, meaning, usage, before, after, childre
         <span>Nghĩa là gì:</span> {meaning}
       </p>
       <p className="demo-item__usage">
-        <span>Dùng để làm gì:</span> {usage}
+        <span>Cách dùng:</span> {usage}
       </p>
+      {when && (
+        <p className="demo-item__when">
+          <span>Khi nào dùng:</span> {when}
+        </p>
+      )}
       {(before || after) && <BeforeAfter before={before} after={after} />}
       {children && (
         <div className="demo-item__live">
